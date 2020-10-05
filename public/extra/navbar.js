@@ -115,7 +115,7 @@ const NavBar = () => {
 
     return (
         <div>
-            <CNavbar expandable="md" color="primary" sticky={true}>
+            <CNavbar expandable="md" color="primary">
                 <CToggler inNavbar onClick={() => setIsOpen(!isOpen)} />
                 <CNavbarBrand>
                     <CRow>

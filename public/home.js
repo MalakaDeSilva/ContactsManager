@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import NavBar from './extra/navbar';
+import Footer from "./extra/footer";
 
 import './App.scss';
 import { CDataTable, CCard, CImg, CSpinner } from '@coreui/react';
@@ -67,7 +68,7 @@ const Home = () => {
             <CCard className="card">
                 {content}
             </CCard>
-            <div>Icons made by <a href="https://smashicons.com/" title="Smashicons">Smashicons</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+            <Footer />
         </div>
     );
 };

@@ -1,7 +1,54 @@
 @import "~@coreui/coreui/scss/coreui";
 @import "~bootstrap/scss/bootstrap";
 
+.nav{
+    width: 100%;
+}
+
 .card{
     padding: 20px;
     box-shadow: 10px 10px 9px grey;
+}
+
+.btn{
+    border-radius: 40px;
+}
+
+.btn-deck{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.topic{
+    font-size: 6vw;
+    font-weight: 600;
+}
+
+.desc{
+    font-size: 2vw;
+}
+
+.home{
+    padding-top: 10vh;
+    width: max-content;
+    margin: auto;
+    text-align: center;
+}
+
+.footer{
+    text-align: center;
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: lightgray;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.creators{
+    font-size: 2vh;
 }
