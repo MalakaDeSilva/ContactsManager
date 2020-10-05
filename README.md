@@ -9,5 +9,5 @@ Contacts Manager is a web based application built using MERN stack. The applicat
 - Run the application using ```npm start```
 
 > ### Note:
-> The application is configured to run on port 5000. 
-> To use the application, open http://localhost:5000 from your web browser.
+> - The application is configured to run on port 5000. 
+> - To use the application, open http://localhost:5000 from your web browser.
