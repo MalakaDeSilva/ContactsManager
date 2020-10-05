@@ -1,10 +1,12 @@
+'use strict'
+
 const { google } = require('googleapis');
 
 function listConnectionNames(auth) {
     const service = google.people({ version: 'v1', auth });
     let contacts = service.people.connections.list({
         resourceName: 'people/me',
-        pageSize: 100,
+        pageSize: 300,
         personFields: 'photos,names,phoneNumbers',
     })
         .then((res) => {
@@ -18,15 +20,25 @@ function listConnectionNames(auth) {
 
 function insertContact(auth, contact) {
     const service = google.people({ version: 'v1', auth });
-    service.people.createContact({
-        parent: 'people/me',
-        resource: contact
-    }, {}, function (err, res) {
+    let returnedContact = service.people.createContact({
+        personFields: "names",
+        requestBody: contact
+    })
+    .then((res) => {
+        return "done";
+    })
+    .catch((err) => {
         console.log(err)
     });
+    return returnedContact;
+}
+
+function logOut(auth){
+    return auth.revokeCredentials();
 }
 
 module.exports = {
     listConnectionNames,
-    insertContact
+    insertContact,
+    logOut
 };

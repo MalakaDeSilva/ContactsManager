@@ -1,6 +1,9 @@
+'use strict'
+
 import { CCol, CImg, CNavbar, CNavbarNav, CNavbarBrand, CRow, CToggler, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem } from '@coreui/react';
 import React, { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
+
 import icon from '../extra/call.png';
 
 
@@ -11,6 +14,9 @@ const NavBar = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const [logOut, setLogOut] = useState(false);
+    const onLogOut = () => setLogOut(!logOut);
 
     const changeHandler = (e) => {
         e.preventDefault()
@@ -36,19 +42,29 @@ const NavBar = () => {
             }
         }
 
-        console.log({ "names": namesArray, "phoneNumbers": numbersArray })
-        fetch('/new-contact',
-            {
-                method: "POST",
-                body: JSON.stringify({ "names": namesArray, "phoneNumbers": numbersArray })
-            })
-            .then(res => res.json())
-            .then(response => {
-                console.log(response)
-            })
-            .catch(error => console.log(error));
+        setTimeout(() => {
+
+            fetch('/new-contact',
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    method: "POST",
+                    body: JSON.stringify({ "names": namesArray, "phoneNumbers": numbersArray })
+                })
+                .then((data) => {
+                    window.location.reload(true);
+                })
+                .catch(error => console.log(error));
+        }, 4000);
 
         handleClose()
+    }
+    
+    const handleLogOut = e => {
+        fetch('/log-out')
+            .then((data) => { console.log(data) })
+            .catch((err) => { console.log(err) });
+
+        onLogOut(!logOut);
     }
 
     let addModal = <div>
@@ -78,6 +94,24 @@ const NavBar = () => {
         </Modal>
     </div>
 
+    let logOutModal = <div>
+        <Modal show={logOut} onHide={onLogOut} backdrop="static" keyboard={false} centered>
+            <Modal.Header closeButton>
+                <Modal.Title><span className="modal_title">Log Out</span></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <h5>Are you sure?</h5>
+                <Button style={{ marginRight: 30, marginLeft: 30, marginTop: 10, width: 100 }} variant="primary" onClick={handleLogOut}>
+                    Yes
+                </Button>
+                <Button style={{ marginTop: 10, width: 100 }} variant="secondary" onClick={onLogOut}>
+                    No
+                </Button>
+            </Modal.Body>
+        </Modal>
+    </div>
+
+
 
     return (
         <div>
@@ -103,13 +137,16 @@ const NavBar = () => {
                         <CDropdownMenu>
                             <CDropdownItem onClick={handleShow}>New Contact</CDropdownItem>
                             <CDropdownItem divider={true}></CDropdownItem>
-                            <CDropdownItem>Log out</CDropdownItem>
+                            <CDropdownItem onClick={onLogOut}>Log out</CDropdownItem>
                         </CDropdownMenu>
                     </CDropdown>
                 </CNavbarNav>
             </CNavbar>
             {
                 addModal
+            }
+            {
+                logOutModal
             }
         </div >
     )
